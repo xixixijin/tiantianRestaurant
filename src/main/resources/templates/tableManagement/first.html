@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>餐桌管理</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
+    <script src="/main.js"></script>
+</head>
+<body>
+
+
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-row">
+        <!--        tab表-->
+        <div class="layui-tab ">
+            <ul class="layui-tab-title">
+                <li class="layui-this">餐桌管理</li>
+                <li><a href="/deskManagement/second">位置管理</a></li>
+                <li><a href="/deskManagement/third">桌型管理 </a></li>
+
+            </ul>
+            <div class="layui-tab-content" style="height: 100px;">
+                <div class="layui-tab-item layui-show">
+                    <div style="margin-top: 10px">
+                        <a href="/deskManagement/first" class="layui-btn">全部</a>
+                        <a href="/deskManagement/first?statusId=1" class="layui-btn">空闲</a>
+                        <a href="/deskManagement/first?statusId=2" class="layui-btn">就餐</a>
+                        <a href="/deskManagement/first?statusId=3" class="layui-btn">预定</a>
+                        <a href="/deskManagement/deskSaveUI" class="layui-btn"><i class="layui-icon">&#xe608;</i>
+                            添加餐桌</a>
+                    </div>
+                    <div style="margin-top: 30px;margin-right: 50px">
+                        <div class="layui-collapse" lay-accordion>
+                            <div th:each="desk:${desks}">
+
+                                <div class="layui-colla-item">
+                                    <h2 class="layui-colla-title">
+                                        <span th:text="${desk.deskName}"> </span>
+                                        <span th:text="${desk.deskStatus.deskStatusName}"></span>
+                                        <span th:text="${desk.deskArea.areaName}"></span>
+                                        <span th:text="${desk.deskType.deskTypeName}"></span>
+                                    </h2>
+                                    <div class="layui-colla-content">
+                                        <!--                                        订单-->
+                                        <div class="layui-colla-item" th:each="order:${desk.orders}">
+                                            <h2 class="layui-colla-title">
+                                                <span th:text="'订单号'+${order.id}"> </span> <span th:text="'下单时间'+${order.orderTime}"></span>
+                                            </h2>
+                                            <div class="layui-colla-content">
+                                                <div style="margin: 30px;">
+                                                    <table class="layui-table">
+                                                        <colgroup>
+                                                            <col width="150">
+                                                            <col width="200">
+                                                        </colgroup>
+                                                        <thead>
+                                                        <tr>
+                                                            <th>菜名</th>
+                                                            <th>数量</th>
+                                                            <th>单价</th>
+                                                            <th>总价</th>
+                                                            <th>是否上菜</th>
+                                                            <th>上菜时间</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody class="tasteList">
+                                                        <tr th:each="dish:${order.dishes}" th:id="${dish.id}">
+                                                            <td th:text="${dish.dish.dishName}">菜名</td>
+                                                            <td th:text="${dish.dishNum}">数量</td>
+                                                            <td th:text="${dish.dish.price}">单价</td>
+                                                            <td th:text="${dish.price}+'元'">总价</td>
+                                                            <td><span th:if="${dish.isFinished}==0" >否</span> <span th:if="${dish.isFinished}==1">是</span></td>
+                                                            <td th:text="${dish.finishTime}"></td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-row" style="padding: 5px"></div>
+        <div class="layui-row"></div>
+    </div>
+    <style>
+        .layui-row {
+            margin-top: 20px;
+
+            margin-left: 25px;
+
+            margin-right: 25px;
+        }
+
+    </style>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>餐桌管理</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
+    <script src="/main.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+</head>
+<body>
+
+
+<!--                    表格-->
+<div style="margin: 30px;">
+    <table class="layui-table">
+        <colgroup>
+            <col width="150">
+            <col width="200">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>菜系</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody class="tasteList">
+        <tr th:each="type:${types}" th:id="${type.id}">
+            <td th:text="${type.dishTypeName}">kouwei</td>
+            <td>
+                <a type="button" class="layui-btn layui-btn-disabled editArea"
+                    href="" >
+<!--                    @{/dish/dishTasteSaveUI}+'?id='+${taste.id}-->
+                    <i class="layui-icon">&#xe642;</i> 编辑
+                </a>
+                <button  th:value="${type.id}" type="button" class="layui-btn layui-btn-danger delete"  >
+                    <i class="layui-icon">&#x1006;</i>删除
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <button onclick="window.location.href='/dish/dishTypeSaveUI'" id="add" type="button" class="layui-btn">
+        <i class="layui-icon">&#xe608;</i> 添加
+    </button>
+</div>
+
+<style>
+    .layui-row {
+        margin-top: 20px;
+
+        margin-left: 25px;
+
+        margin-right: 25px;
+    }
+
+    .layui-input {
+        width: 65%;
+    }
+
+    #addArea {
+        margin: 20px;
+    }
+</style>
+<script>
+    $(".delete").click(function () {
+        var val= $(this).attr("value");
+        if (confirm('确定删除吗？')){
+            $.ajax({
+                type: "DELETE",
+                url: "/dish/deleteType?id="+val,
+            });
+            $(this).parent().parent().remove();
+        }
+    });
+
+
+
+
+</script>
+</body>
+</html>

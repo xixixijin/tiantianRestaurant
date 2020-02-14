@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
+    <script src="/main.js"></script>
+</head>
+<body>
+
+
+
+<form class="layui-card layui-form" lay-filter="component-form-element" action="/deskManagement/saveDesk" method="post">
+    <div class="layui-card-header"> 餐桌信息 </div>
+    <div class="layui-card-body layui-row layui-col-space10">
+        <div class="layui-col-md4">
+            <input type="text"  name="deskName" required  lay-verify="required" placeholder="请输入餐桌名称" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-col-md4">
+            <select name="deskTypeId" lay-verify="">
+                <option value="">请选择桌型</option>
+                <option th:each="deskType:${deskTypes}" th:text="${deskType.deskTypeName}" th:value="${deskType.id}"
+                        >北京
+                </option>
+            </select>
+        </div>
+        <div class="layui-col-md4">
+            <select name="deskAreaId" lay-verify="">
+                <option value="">请选择位置</option>
+                <option th:each="deskArea:${deskAreas}" th:text="${deskArea.areaName}" th:value="${deskArea.id}" >
+                    北京
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item" style="margin-left: 15px">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            <button type="button"  class="layui-btn layui-btn-primary" onclick="history.go(-1)">返回</button>
+    </div>
+
+</form>
+
+
+
+</body>
+</html>

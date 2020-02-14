@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>餐桌管理</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
+    <script src="/main.js"></script>
+</head>
+<body>
+
+
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-row">
+<!--        tab表-->
+        <div class="layui-tab ">
+            <ul class="layui-tab-title">
+                <li><a href="/deskManagement/first">餐桌管理</a></li>
+                <li><a href="/deskManagement/second">位置管理</a></li>
+                <li class="layui-this">桌型管理</li>
+
+            </ul>
+            <div class="layui-tab-content" style="height: 100px;">
+                <div class="layui-tab-item">1</div>
+                <div class="layui-tab-item">2</div>
+                <div class="layui-tab-item layui-show">
+<!--                    表格-->
+                    <div>
+                    <table class="layui-table">
+                        <colgroup>
+                            <col width="150">
+                            <col width="200">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>桌型</th>
+                            <th>人数</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody class="areaList">
+                        <tr th:each="deskType:${deskTypes}" th:id="${deskType.id}">
+                            <td th:text="${deskType.deskTypeName}">canzhuoweizhi </td>
+                            <td th:text="${deskType.minUsers}+'~'+${deskType.maxUsers}+'人'"></td>
+                            <td>
+                                <a type="button" class="layui-btn layui-btn-warm editArea" th:href="@{/deskManagement/typeSaveUI}+'?id='+${deskType.id}">
+                                    <i class="layui-icon">&#xe642;</i> 编辑
+                                </a>
+                                <button type="button" class="layui-btn layui-btn-danger deleteArea"  th:value="${deskType.id}">
+                                    <i class="layui-icon">&#x1006;</i>删除
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <button onclick="window.location.href='/deskManagement/typeSaveUI'" id="addArea" type="button" class="layui-btn" >
+                        <i class="layui-icon">&#xe608;</i> 添加
+                    </button>
+                    </div>
+
+
+
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="layui-row" style="padding: 5px"></div>
+    <div class="layui-row"></div>
+</div>
+<style>
+    .layui-row {
+        margin-top: 20px;
+
+        margin-left: 25px;
+
+        margin-right: 25px;
+    }
+
+
+</style>
+
+</body>
+</html>

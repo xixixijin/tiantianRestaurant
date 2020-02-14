@@ -1,2 +1,2 @@
 # tiantianRestaurant
-a restaurant system
+一个餐饮管理系统
