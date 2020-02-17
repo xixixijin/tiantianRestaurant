@@ -2,7 +2,6 @@ package ming.jin.tiantian.api.bean.order;
 import ming.jin.tiantian.api.bean.dish.Dish;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -13,10 +12,10 @@ import java.util.Date;
  */
 public class OrderDish implements Serializable {
     private String id;
-    private String orderId;//订单id
+    private String orderInfoId;//订单id
     private String dishId;//菜的id
     private String dishNum;//菜的数量
-    private BigDecimal price;
+
     private String isFinished;
     private Date finishTime;
     private Dish dish;
@@ -30,12 +29,12 @@ public class OrderDish implements Serializable {
         this.id = id;
     }
 
-    public String getOrderId() {
-        return orderId;
+    public String getOrderInfoId() {
+        return orderInfoId;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setOrderInfoId(String orderInfoId) {
+        this.orderInfoId = orderInfoId;
     }
 
     public String getDishId() {
@@ -52,14 +51,6 @@ public class OrderDish implements Serializable {
 
     public void setDishNum(String dishNum) {
         this.dishNum = dishNum;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
     }
 
     public String getIsFinished() {

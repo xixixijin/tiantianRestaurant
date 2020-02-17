@@ -1,6 +1,7 @@
 package ming.jin.tiantian.api.service;
 
 import ming.jin.tiantian.api.bean.order.Order;
+import ming.jin.tiantian.api.bean.order.OrderDish;
 
 import java.util.List;
 
@@ -21,4 +22,8 @@ public interface OrderService {
     Order getOrderById(String orderId);
 
     List<Order> getOrderByStatusId(String s);
+
+    void addOrder(Order order);
+
+    void addOrderDish(OrderDish orderDish);
 }

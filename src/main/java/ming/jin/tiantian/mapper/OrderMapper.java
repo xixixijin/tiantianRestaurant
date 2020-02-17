@@ -32,6 +32,9 @@ public interface OrderMapper {
     })
     List<Order> getOrderList();
 
+    @Options(useGeneratedKeys = true,keyProperty = "id",keyColumn = "id")
+    @Insert("insert into order_info (desk_id,user_num,order_time,order_member,is_start,total_price,status_id,preset_time,finish_time,is_finished) values (#{deskId},#{userNum},#{orderTime},#{orderMember},#{isStart},#{totalPrice},#{statusId},#{presetTime},#{finishTime},#{isFinished} )")
+    void addOrder(Order order);
 
 
     //根据id查询订单状态
@@ -46,6 +49,10 @@ public interface OrderMapper {
             ))
     })
     List<OrderDish> getOrderDishByOrderId(String orderId);
+    //添加订单中的菜
+    @Insert("insert into order_dish (order_info_id,dish_id,dish_num,is_finished,finish_time,cooking) values(#{orderId},#{dishId},#{dishNum},#{isFinished},#{finishTime},#{cooking})")
+    void addOrderDish(OrderDish orderDish);
+
     //查询未完成订单
     @Select("select *from order_info where is_finished=0")
     @Results(value = {

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" style="background: #f2f2f2">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
+    <script src="/main.js"></script>
+    <style>
+        .layui-card {
+            height: 267px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div style="margin: 40px">
+    <div class="layui-fluid" id="LAY-component-grid-list">
+
+        <div class="layui-row layui-col-space10 demo-list">
+            <div class="layui-col-sm4 layui-col-md3 layui-col-lg2" th:each="orderDishes:${orderDishLists}">
+                <!-- 填充内容 -->
+                <div class="layui-card">
+                    <form action="/">
+                        <div th:each="orderDish:${orderDishes}">
+                            <p ><span th:text="${orderDish.id}"> </span>|<span th:text="${orderDish.orderInfoId}"></span>|<span th:text="${orderDish.dishId}"></span>
+                            </p>
+                        </div>
+
+
+                    </form>
+
+                </div>
+            </div>
+<!--            <button onclick="window.location.href='/order/add'"type="button" class="layui-btn">-->
+<!--                <i class="layui-icon">&#xe608;</i> 下单-->
+<!--            </button>-->
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

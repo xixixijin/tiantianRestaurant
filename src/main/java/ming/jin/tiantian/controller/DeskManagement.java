@@ -15,7 +15,7 @@ import java.util.List;
  * @author Haokun
  * @date 2020/1/14 15:13
  * <p>
- * order_sys
+ * 餐桌管理模块
  */
 @Controller
 @RequestMapping("deskManagement")

@@ -13,7 +13,7 @@ import java.util.List;
  * @author Haokun
  * @date 2020/1/21 12:06
  * <p>
- * order_sys
+ * 点餐下单模块
  */
 @Controller
 @RequestMapping("customer")

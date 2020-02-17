@@ -42,7 +42,7 @@
                                 <th>菜名</th>
                                 <th>数量</th>
                                 <th>单价</th>
-                                <th>总价</th>
+<!--                                <th>总价</th>-->
                                 <th>是否上菜</th>
                                 <th>上菜时间</th>
                             </tr>
@@ -52,7 +52,7 @@
                                 <td th:text="${dish.dish.dishName}">菜名</td>
                                 <td th:text="${dish.dishNum}">数量</td>
                                 <td th:text="${dish.dish.price}">单价</td>
-                                <td th:text="${dish.price}+'元'">总价</td>
+<!--                                <td th:text="${dish.price}+'元'">总价</td>-->
                                 <td><span th:if="${dish.isFinished}==0" >否</span> <span th:if="${dish.isFinished}==1">是</span></td>
                                 <td th:text="${dish.finishTime}"></td>
                             </tr>

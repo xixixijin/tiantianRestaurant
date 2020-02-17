@@ -1,9 +1,11 @@
 package ming.jin.tiantian.impl;
+import com.alibaba.fastjson.JSON;
 import ming.jin.tiantian.api.bean.dish.CookType;
 import ming.jin.tiantian.api.bean.dish.Dish;
 import ming.jin.tiantian.api.bean.dish.DishTaste;
 import ming.jin.tiantian.api.bean.dish.DishType;
 import ming.jin.tiantian.api.service.DishService;
+import ming.jin.tiantian.api.utils.JedisUtils;
 import ming.jin.tiantian.mapper.DishMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,15 +25,50 @@ import java.util.List;
 public class DishServiceImpl implements DishService {
     @Autowired
     DishMapper dishMapper;
+    @Autowired
+    JedisUtils jedisUtils;
 
     @Override
     public List<Dish> getDishList() {
-        return dishMapper.getDishList();
+        String list = jedisUtils.get("dishList");
+        if (list==null|| list.isEmpty()){
+            List<Dish> dishes=dishMapper.getDishList();
+            if (dishes==null){
+                jedisUtils.setex("dishList",60*2,null);
+            }else{
+                String str= JSON.toJSONString(dishes);
+                jedisUtils.set("dishList",str);
+            }
+            return dishes;
+        }else {
+            List<Dish> dishes=JSON.parseArray(list,Dish.class);
+            return dishes;
+        }
+    }
+
+    @Override
+    public void addDish(Dish dish) {
+        dishMapper.addDish(dish);
+        jedisUtils.del("dishList");
     }
 
     @Override
     public List<DishTaste> getDishTasteList() {
-        return dishMapper.getDishTasteList();
+        String list=jedisUtils.get("dishTasteList");
+        if (list==null||list.isEmpty()){
+            List<DishTaste> dishTastes=dishMapper.getDishTasteList();
+            if (dishTastes==null){
+                jedisUtils.setex("dishTasteList",60*2,null);
+            }else {
+                String str=JSON.toJSONString(dishTastes);
+                jedisUtils.set("dishTasteList",str);
+            }
+            return dishTastes;
+
+        }else {
+            List<DishTaste> dishTastes=JSON.parseArray(list,DishTaste.class);
+            return dishTastes;
+        }
     }
 
     @Override
@@ -46,7 +83,9 @@ public class DishServiceImpl implements DishService {
 
     @Override
     public int addDishTaste(DishTaste dishTaste) {
-        return dishMapper.addDishTaset(dishTaste);
+        dishMapper.addDishTaset(dishTaste);
+        jedisUtils.del("dishTasteList");
+        return 1;
     }
 
     @Override
@@ -54,12 +93,16 @@ public class DishServiceImpl implements DishService {
 
         dishMapper.delByTaste(id);
         int a=dishMapper.delDishTaste(id);
+        jedisUtils.del("dishTasteList");
         return a;
     }
 
     @Override
     public int editDishTaste(DishTaste dishTaste) {
-        return dishMapper.editDishTaste(dishTaste);
+        dishMapper.editDishTaste(dishTaste);
+        jedisUtils.del("dishTasteList");
+        return 1;
+
     }
 
     @Override
@@ -92,11 +135,6 @@ public class DishServiceImpl implements DishService {
     @Override
     public int editCookType(CookType cookType) {
         return dishMapper.editCookType(cookType);
-    }
-
-    @Override
-    public void addDish(Dish dish) {
-        dishMapper.addDish(dish);
     }
 
 

@@ -122,7 +122,9 @@ public interface DeskMapper {
     List<DeskArea> getDeskAreaByName(String areaName);
     @Select("select * from desk_area where area_floor=#{areaFloor}")
     List<DeskArea> getDeskAreaByFloor(String areaFloor);
+
     @Insert("insert into desk_area (area_name,area_desc,area_floor) values(#{areaName},#{areaDesc},#{areaFloor})")
+    @Options(useGeneratedKeys = true,keyProperty = "id",keyColumn = "id")
     int addDeskArea(DeskArea deskArea);
     @Delete("delete from desk_area where id =#{deskAreaId}")
     int deleteDeskArea(String deskAreaId);

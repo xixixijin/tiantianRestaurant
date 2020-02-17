@@ -26,8 +26,9 @@
                         <img src="" alt="">
 
                     </div>
-                    <form action="../order/add">
+                    <form action="../order/addDish">
                         <input type="hidden" name="deskId" th:value="${deskId}">
+                        <input type="hidden" name="dishId" th:value="${dish.id}">
                         <div style="margin-left: 10px">
                             <p th:text="${dish.dishName}"> 名称</p>
                             <p>
@@ -47,7 +48,9 @@
 
                 </div>
             </div>
-
+            <button onclick="window.location.href='/order/add'"type="button" class="layui-btn">
+                <i class="layui-icon">&#xe608;</i> 下单
+            </button>
 
         </div>
     </div>
